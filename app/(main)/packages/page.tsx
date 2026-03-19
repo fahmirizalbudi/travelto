@@ -47,7 +47,7 @@ export default function PackagesPage() {
               </div>
 
               <div className="p-6 flex flex-col flex-1 bg-[#F8FAFC]">
-                <h3 className="text-xl font-bold font-heading text-text mb-4 group-hover:text-primary transition-colors">{dest.title}</h3>
+                <h3 className="text-xl font-semibold font-heading text-text mb-4 group-hover:text-primary transition-colors">{dest.title}</h3>
 
                 <div className="flex flex-col gap-3 mb-6 flex-1">
                   <span className="flex items-center gap-2 text-sm text-text/60 font-normal"><Location01Icon className="w-4 h-4 text-text/40" /> {dest.location}</span>

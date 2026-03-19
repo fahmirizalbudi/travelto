@@ -29,7 +29,7 @@ export function PopularDestinations() {
             <div className={`h-64 md:h-80 rounded-3xl mb-4 overflow-hidden relative transition-all duration-300 transform group-hover:-translate-y-2`}>
               <div className="absolute inset-0 bg-[#E8F1FA] hover:opacity-90 transition-opacity duration-500" style={{ backgroundImage: `url("${dest.image}")`, backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
             </div>
-            <h3 className="text-xl font-bold text-text mb-2 tracking-tight group-hover:text-primary transition-colors">{dest.title}</h3>
+            <h3 className="text-xl font-semibold text-text mb-2 tracking-tight group-hover:text-primary transition-colors">{dest.title}</h3>
             <div className="flex items-center justify-between text-sm">
               <span className="text-text/60"><span className="text-cta font-bold">${dest.price}</span> starting</span>
               <div className="flex items-center text-orange-400 gap-1">
