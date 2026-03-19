@@ -1,37 +1,21 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Logo } from "../../../src/components/ui/Logo";
 import { Input } from "../../../src/components/ui/Input";
-import { signUp, useSession } from "@/src/lib/auth-client";
+import { Button } from "../../../src/components/ui/Button";
+import { signUp } from "@/src/lib/auth-client";
 
 export default function SignUpPage() {
   const router = useRouter();
-  const { data: session, isPending } = useSession();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
-  // Redirect if already authenticated
-  useEffect(() => {
-    if (!isPending && session?.user) {
-      router.replace("/");
-    }
-  }, [session, isPending, router]);
-
-  // Show loading while checking session
-  if (isPending || session?.user) {
-    return (
-      <div className="min-h-screen w-full flex items-center justify-center bg-white">
-        <div className="w-12 h-12 rounded-full bg-slate-100 animate-pulse"></div>
-      </div>
-    );
-  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -144,13 +128,13 @@ export default function SignUpPage() {
                 disabled={isLoading}
               />
 
-              <button
+              <Button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-[#1E293B] text-white hover:bg-[#0F172A] py-4 rounded-2xl font-medium text-lg mt-4 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full mt-4"
               >
                 {isLoading ? "Creating account..." : "Create account"}
-              </button>
+              </Button>
 
               <p className="text-xs text-center text-text/50 mt-2 font-medium">
                 By creating an account, you agree to our{" "}

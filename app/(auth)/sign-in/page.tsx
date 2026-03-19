@@ -1,35 +1,19 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Logo } from "../../../src/components/ui/Logo";
 import { Input } from "../../../src/components/ui/Input";
-import { signIn, useSession } from "@/src/lib/auth-client";
+import { Button } from "../../../src/components/ui/Button";
+import { signIn } from "@/src/lib/auth-client";
 
 export default function SignInPage() {
   const router = useRouter();
-  const { data: session, isPending } = useSession();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
-  // Redirect if already authenticated
-  useEffect(() => {
-    if (!isPending && session?.user) {
-      router.replace("/");
-    }
-  }, [session, isPending, router]);
-
-  // Show loading while checking session
-  if (isPending || session?.user) {
-    return (
-      <div className="min-h-screen w-full flex items-center justify-center bg-white">
-        <div className="w-12 h-12 rounded-full bg-slate-100 animate-pulse"></div>
-      </div>
-    );
-  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -153,13 +137,13 @@ export default function SignInPage() {
                 </div>
               </div>
 
-              <button
+              <Button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-[#1E293B] text-white hover:bg-[#0F172A] py-4 rounded-2xl font-medium text-lg mt-4 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full mt-4"
               >
                 {isLoading ? "Signing in..." : "Sign in to account"}
-              </button>
+              </Button>
 
               <div className="relative flex items-center justify-center mt-6 mb-2">
                 <div className="absolute inset-0 flex items-center">
@@ -170,11 +154,12 @@ export default function SignInPage() {
                 </span>
               </div>
 
-              <button
+              <Button
                 type="button"
+                variant="flat"
                 onClick={handleGoogleSignIn}
                 disabled={isLoading}
-                className="w-full bg-slate-100 text-text hover:bg-slate-200 py-4 rounded-2xl font-medium text-base transition-colors flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full gap-3"
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24">
                   <path
@@ -195,7 +180,7 @@ export default function SignInPage() {
                   />
                 </svg>
                 Google
-              </button>
+              </Button>
             </form>
           </div>
         </div>

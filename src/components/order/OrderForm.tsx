@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Input } from "@/src/components/ui/Input";
 import { Button } from "@/src/components/ui/Button";
 import { useSession } from "@/src/lib/auth-client";
-import { Tick02Icon, Location01Icon, Clock01Icon, StarIcon } from "hugeicons-react";
+import { Tick02Icon, Location01Icon, Clock01Icon, StarIcon, Calendar03Icon } from "hugeicons-react";
 
 interface Package {
   id: string;
@@ -34,6 +34,7 @@ interface OrderFormProps {
 export function OrderForm({ pkg }: OrderFormProps) {
   const router = useRouter();
   const { data: session, isPending: sessionLoading } = useSession();
+  const dateInputRef = useRef<HTMLInputElement>(null);
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -138,6 +139,17 @@ export function OrderForm({ pkg }: OrderFormProps) {
   today.setDate(today.getDate() + 1);
   const minDate = today.toISOString().split("T")[0];
 
+  // Format displayed date
+  const formatDisplayDate = (dateStr: string) => {
+    if (!dateStr) return "";
+    const date = new Date(dateStr);
+    return date.toLocaleDateString("en-US", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    });
+  };
+
   if (success) {
     return (
       <div className="w-full flex flex-col items-center py-16">
@@ -152,10 +164,10 @@ export function OrderForm({ pkg }: OrderFormProps) {
             Your booking for <span className="font-semibold text-text">{pkg.title}</span> has been successfully created. We&apos;ve sent a confirmation email to <span className="font-semibold text-text">{email}</span>.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button onClick={() => router.push("/")} className="px-10">
+            <Button onClick={() => router.push("/")}>
               Back to Home
             </Button>
-            <Button variant="flat" onClick={() => router.push("/packages")} className="px-10">
+            <Button variant="flat" onClick={() => router.push("/packages")}>
               Browse More Packages
             </Button>
           </div>
@@ -191,7 +203,7 @@ export function OrderForm({ pkg }: OrderFormProps) {
 
         <form onSubmit={handleSubmit}>
           {/* Contact Details Section */}
-          <div className="bg-[#F8FAFC] p-8 rounded-[2rem] mb-8">
+          <div className="bg-slate-100 p-8 rounded-[2rem] mb-8">
             <h2 className="text-3xl font-bold font-heading mb-8 tracking-tight">
               Contact Details
             </h2>
@@ -203,6 +215,7 @@ export function OrderForm({ pkg }: OrderFormProps) {
                   placeholder="Ex. John"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
+                  className="bg-white"
                   required
                 />
                 <Input
@@ -211,6 +224,7 @@ export function OrderForm({ pkg }: OrderFormProps) {
                   placeholder="Ex. Doe"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
+                  className="bg-white"
                   required
                 />
               </div>
@@ -221,6 +235,7 @@ export function OrderForm({ pkg }: OrderFormProps) {
                 placeholder="hello@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                className="bg-white"
                 required
               />
               <Input
@@ -230,29 +245,43 @@ export function OrderForm({ pkg }: OrderFormProps) {
                 placeholder="+1 (555) 000-0000"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
+                className="bg-white"
                 required
               />
             </div>
           </div>
 
           {/* Travel Details Section */}
-          <div className="bg-[#F8FAFC] p-8 rounded-[2rem] mb-8">
+          <div className="bg-slate-100 p-8 rounded-[2rem] mb-8">
             <h2 className="text-3xl font-bold font-heading mb-8 tracking-tight">
               Travel Details
             </h2>
             <div className="flex flex-col gap-6">
+              {/* Custom Date Input */}
               <div>
                 <label className="block text-sm font-semibold mb-2 text-text/80">
                   Travel Date
                 </label>
-                <input
-                  type="date"
-                  min={minDate}
-                  value={travelDate}
-                  onChange={(e) => setTravelDate(e.target.value)}
-                  className="w-full px-5 py-4 rounded-2xl bg-white placeholder:text-text/40 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-text font-medium"
-                  required
-                />
+                <div className="relative">
+                  <input
+                    ref={dateInputRef}
+                    type="date"
+                    min={minDate}
+                    value={travelDate}
+                    onChange={(e) => setTravelDate(e.target.value)}
+                    className="absolute inset-0 opacity-0 w-full h-full cursor-pointer"
+                    required
+                  />
+                  <div
+                    onClick={() => dateInputRef.current?.showPicker()}
+                    className="w-full px-5 py-4 rounded-2xl bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-text font-medium flex items-center justify-between cursor-pointer"
+                  >
+                    <span className={travelDate ? "text-text" : "text-text/40"}>
+                      {travelDate ? formatDisplayDate(travelDate) : "Select travel date"}
+                    </span>
+                    <Calendar03Icon className="w-5 h-5 text-text/40" />
+                  </div>
+                </div>
               </div>
               <div className="flex flex-col sm:flex-row gap-6">
                 <div className="flex-1">
@@ -262,7 +291,7 @@ export function OrderForm({ pkg }: OrderFormProps) {
                   <select
                     value={adults}
                     onChange={(e) => setAdults(parseInt(e.target.value))}
-                    className="w-full px-5 py-4 rounded-2xl bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-text font-medium"
+                    className="w-full px-5 py-4 rounded-2xl bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-text font-medium cursor-pointer"
                   >
                     {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
                       <option key={n} value={n}>
@@ -278,7 +307,7 @@ export function OrderForm({ pkg }: OrderFormProps) {
                   <select
                     value={children}
                     onChange={(e) => setChildren(parseInt(e.target.value))}
-                    className="w-full px-5 py-4 rounded-2xl bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-text font-medium"
+                    className="w-full px-5 py-4 rounded-2xl bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-text font-medium cursor-pointer"
                   >
                     {[0, 1, 2, 3, 4, 5, 6].map((n) => (
                       <option key={n} value={n}>
@@ -306,7 +335,7 @@ export function OrderForm({ pkg }: OrderFormProps) {
           <Button
             type="submit"
             disabled={isSubmitting || !session?.user}
-            className="w-full py-5 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isSubmitting ? "Processing..." : "Complete Booking"}
           </Button>
@@ -315,7 +344,7 @@ export function OrderForm({ pkg }: OrderFormProps) {
 
       {/* Right Column - Order Summary */}
       <div className="w-full lg:w-[40%]">
-        <div className="sticky top-10 bg-slate-100 p-8 rounded-[2.5rem]">
+        <div className="sticky top-10 bg-[#F8FAFC] p-8 rounded-[2.5rem]">
           <h3 className="text-2xl font-bold font-heading mb-8 tracking-tight">
             Order Summary
           </h3>
