@@ -6,7 +6,7 @@ import { StarIcon, Location01Icon, Clock01Icon, Tick02Icon } from 'hugeicons-rea
 import { Input } from '../../../../src/components/ui/Input';
 import { Button } from '../../../../src/components/ui/Button';
 
-export default async function PackageDetailPage({ params }: { params: { id: string } }) {
+export default async function PackageDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = await params;
   const pkg = packages.find(p => p.id === resolvedParams.id);
 
