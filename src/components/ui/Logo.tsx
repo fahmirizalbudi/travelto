@@ -5,7 +5,7 @@ export function Logo({ className = '' }: { className?: string }) {
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" className={className}>
       <defs>
         <linearGradient id="mainGradLogo" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#3B82F6" />
+          <stop offset="0%" stopColor="#2F6EEA" />
           <stop offset="100%" stopColor="#1D4ED8" />
         </linearGradient>
         <linearGradient id="accGradLogo" x1="0" y1="0" x2="1" y2="1">

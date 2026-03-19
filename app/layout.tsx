@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Outfit, Work_Sans } from "next/font/google";
 import "./globals.css";
-import { Header } from "../src/components/layout/Header";
-import { Footer } from "../src/components/layout/Footer";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -27,13 +25,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${outfit.variable} ${workSans.variable} font-body antialiased text-text bg-background relative`}
+        className={`${outfit.variable} ${workSans.variable} font-body antialiased text-text bg-white relative tracking-tight`}
       >
-        <Header />
-        <main className="min-h-screen">
-          {children}
-        </main>
-        <Footer />
+        {children}
       </body>
     </html>
   );

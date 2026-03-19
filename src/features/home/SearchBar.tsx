@@ -1,35 +1,22 @@
 import React from 'react';
-import { ChevronDown, Search } from 'lucide-react';
+import { Search01Icon } from 'hugeicons-react';
+import { Input } from '../../components/ui/Input';
 
 export function SearchBar() {
   return (
-    <div className="bg-white rounded-3xl p-4 flex flex-col md:flex-row items-center gap-6 w-full max-w-2xl relative z-20">
-      <div className="flex-1 w-full text-left pl-4">
-        <label className="text-[10px] text-text/50 font-semibold mb-1 block uppercase tracking-wider">Location</label>
-        <div className="flex items-center justify-between cursor-pointer group">
-          <span className="font-semibold text-text text-sm group-hover:text-primary transition-colors">Maldives</span>
-          <ChevronDown className="w-3.5 h-3.5 text-primary" />
-        </div>
-      </div>
-
+    <div className="bg-[#F8FAFC] rounded-[2.5rem] p-4 flex flex-col md:flex-row items-end gap-4 w-full max-w-4xl relative z-20">
       <div className="flex-1 w-full text-left">
-        <label className="text-[10px] text-text/50 font-semibold mb-1 block uppercase tracking-wider">Date</label>
-        <div className="flex items-center justify-between cursor-pointer group">
-          <span className="font-semibold text-text text-sm group-hover:text-primary transition-colors">26 Mar, Fri</span>
-          <ChevronDown className="w-3.5 h-3.5 text-primary" />
-        </div>
+        <Input id="location" label="Location" placeholder="Where to?" className="bg-white" />
       </div>
-
       <div className="flex-1 w-full text-left">
-        <label className="text-[10px] text-text/50 font-semibold mb-1 block uppercase tracking-wider">Price</label>
-        <div className="flex items-center justify-between cursor-pointer group">
-          <span className="font-semibold text-text text-sm group-hover:text-primary transition-colors">$600-2000</span>
-          <ChevronDown className="w-3.5 h-3.5 text-primary" />
-        </div>
+        <Input id="date" type="date" label="Date" className="bg-white" />
+      </div>
+      <div className="flex-1 w-full text-left">
+        <Input id="guests" type="number" label="Guests" placeholder="How many?" min={1} className="bg-white" />
       </div>
 
-      <button className="bg-cta rounded-2xl w-14 h-14 flex items-center justify-center shrink-0 hover:bg-cta/90 transition-colors cursor-pointer">
-        <Search className="w-5 h-5 text-white" />
+      <button className="bg-primary rounded-2xl w-[60px] h-[60px] mb-1 flex items-center justify-center shrink-0 hover:bg-blue-600 transition-colors cursor-pointer text-white">
+        <Search01Icon className="w-5 h-5" />
       </button>
     </div>
   );

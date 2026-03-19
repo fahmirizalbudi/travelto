@@ -1,5 +1,5 @@
 import React from 'react';
-import { Facebook, Instagram, Twitter } from 'lucide-react';
+import { Facebook01Icon, InstagramIcon, TwitterIcon } from 'hugeicons-react';
 
 export function PartnerLogos() {
   const partners = ['Expedia', 'TURKISH AIRLINES', 'Skyscanner', 'Airbnb'];
@@ -9,14 +9,14 @@ export function PartnerLogos() {
       <div className="flex flex-col md:flex-row items-center justify-between gap-8 py-8 text-gray-400 font-semibold text-xl">
         <div className="flex items-center gap-4 text-text/60">
           <span className="text-sm font-medium mr-2">Follow</span>
-          <button className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center cursor-pointer hover:bg-gray-100 hover:text-primary transition-all shadow-sm">
-            <Facebook className="w-3.5 h-3.5" />
+          <button className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center cursor-pointer hover:bg-gray-100 hover:text-primary transition-all ">
+            <Facebook01Icon className="w-3.5 h-3.5" />
           </button>
-          <button className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center cursor-pointer hover:bg-gray-100 hover:text-primary transition-all shadow-sm">
-            <Instagram className="w-3.5 h-3.5" />
+          <button className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center cursor-pointer hover:bg-gray-100 hover:text-primary transition-all ">
+            <InstagramIcon className="w-3.5 h-3.5" />
           </button>
-          <button className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center cursor-pointer hover:bg-gray-100 hover:text-primary transition-all shadow-sm">
-            <Twitter className="w-3.5 h-3.5" />
+          <button className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center cursor-pointer hover:bg-gray-100 hover:text-primary transition-all ">
+            <TwitterIcon className="w-3.5 h-3.5" />
           </button>
         </div>
 

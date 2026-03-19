@@ -1,5 +1,6 @@
 import React from 'react';
-import { Plane, Wifi, Coffee } from 'lucide-react';
+import Link from 'next/link';
+import { Airplane01Icon, Wifi01Icon, Coffee01Icon } from 'hugeicons-react';
 import { Button } from '../../components/ui/Button';
 
 export function OffersSection() {
@@ -11,7 +12,7 @@ export function OffersSection() {
           <div className="absolute top-0 right-0 w-[80%] h-[400px] bg-[#E8F1FA] rounded-[2rem] overflow-hidden cursor-pointer group" style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=800")', backgroundSize: 'cover', backgroundPosition: 'center' }}>
             <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-500"></div>
           </div>
-          <div className="absolute bottom-0 left-0 w-[70%] h-[320px] bg-[#FFF8E7] rounded-[2rem] overflow-hidden cursor-pointer group border-[12px] border-white" style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1582719478250-c89404bb2a0b?auto=format&fit=crop&q=80&w=800")', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+          <div className="absolute bottom-0 left-0 w-[70%] h-[320px] bg-[#FFF8E7] rounded-[2rem] overflow-hidden cursor-pointer group ] " style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1582719478250-c89404bb2a0b?auto=format&fit=crop&q=80&w=800")', backgroundSize: 'cover', backgroundPosition: 'center' }}>
             <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-500"></div>
           </div>
         </div>
@@ -29,28 +30,28 @@ export function OffersSection() {
 
         <div className="space-y-6 mb-12">
           <div className="flex items-center gap-6 group cursor-pointer">
-            <div className="w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-              <Plane className="w-6 h-6" />
+            <div className="w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+              <Airplane01Icon className="w-6 h-6" />
             </div>
             <span className="font-medium text-text/80 text-lg group-hover:text-text transition-colors">Air Conditioner</span>
           </div>
           <div className="flex items-center gap-6 group cursor-pointer">
-            <div className="w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-              <Wifi className="w-6 h-6" />
+            <div className="w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+              <Wifi01Icon className="w-6 h-6" />
             </div>
-            <span className="font-medium text-text/80 text-lg group-hover:text-text transition-colors">Internet/Wifi</span>
+            <span className="font-medium text-text/80 text-lg group-hover:text-text transition-colors">Internet/Wifi01Icon</span>
           </div>
           <div className="flex items-center gap-6 group cursor-pointer">
-            <div className="w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-              <Coffee className="w-6 h-6" />
+            <div className="w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+              <Coffee01Icon className="w-6 h-6" />
             </div>
             <span className="font-medium text-text/80 text-lg group-hover:text-text transition-colors">Breakfast</span>
           </div>
         </div>
 
-        <Button className="rounded-full px-10 py-4 bg-primary text-white hover:-translate-y-1">
+        <Link href="/packages" className="inline-block rounded-full px-10 py-4 bg-primary text-white hover:bg-blue-600 hover:-translate-y-1  font-medium transition-all mt-4">
           Book Now
-        </Button>
+        </Link>
       </div>
     </section>
   );
