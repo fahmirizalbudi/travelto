@@ -3,7 +3,9 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Input } from "@/src/components/ui/Input";
+import { Button } from "@/src/components/ui/Button";
 import { useSession } from "@/src/lib/auth-client";
+import { Tick02Icon, Location01Icon, Clock01Icon, StarIcon } from "hugeicons-react";
 
 interface Package {
   id: string;
@@ -138,30 +140,24 @@ export function OrderForm({ pkg }: OrderFormProps) {
 
   if (success) {
     return (
-      <div className="w-full lg:w-[60%] flex flex-col gap-8">
-        <div className="bg-green-50 border border-green-200 p-8 rounded-[2rem] text-center">
-          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <svg className="w-8 h-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-            </svg>
+      <div className="w-full flex flex-col items-center py-16">
+        <div className="max-w-xl w-full text-center">
+          <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-8">
+            <Tick02Icon className="w-10 h-10 text-green-600" />
           </div>
-          <h2 className="text-3xl font-extrabold font-heading mb-4 text-green-800">Booking Confirmed!</h2>
-          <p className="text-green-700 mb-6">
-            Your booking for {pkg.title} has been successfully created. We&apos;ve sent a confirmation email to {email}.
+          <h2 className="text-[48px] font-bold font-heading mb-6 text-text tracking-tight">
+            Booking Confirmed!
+          </h2>
+          <p className="text-lg text-text/60 mb-10 leading-relaxed">
+            Your booking for <span className="font-semibold text-text">{pkg.title}</span> has been successfully created. We&apos;ve sent a confirmation email to <span className="font-semibold text-text">{email}</span>.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button
-              onClick={() => router.push("/")}
-              className="bg-green-600 text-white hover:bg-green-700 px-8 py-3 rounded-2xl font-medium transition-colors"
-            >
+            <Button onClick={() => router.push("/")} className="px-10">
               Back to Home
-            </button>
-            <button
-              onClick={() => router.push("/packages")}
-              className="bg-white text-green-700 hover:bg-green-50 px-8 py-3 rounded-2xl font-medium transition-colors border border-green-200"
-            >
+            </Button>
+            <Button variant="flat" onClick={() => router.push("/packages")} className="px-10">
               Browse More Packages
-            </button>
+            </Button>
           </div>
         </div>
       </div>
@@ -170,15 +166,15 @@ export function OrderForm({ pkg }: OrderFormProps) {
 
   return (
     <>
-      {/* Left Form: Contact & Booking */}
+      {/* Left Column - Form */}
       <div className="w-full lg:w-[60%] flex flex-col gap-8">
         {!session?.user && !sessionLoading && (
-          <div className="bg-amber-50 border border-amber-200 p-6 rounded-2xl">
+          <div className="bg-amber-50 p-6 rounded-2xl">
             <p className="text-amber-800 font-medium">
               Please{" "}
               <button
                 onClick={() => router.push("/sign-in")}
-                className="text-amber-900 underline font-bold"
+                className="text-amber-900 underline font-bold cursor-pointer"
               >
                 sign in
               </button>{" "}
@@ -188,14 +184,15 @@ export function OrderForm({ pkg }: OrderFormProps) {
         )}
 
         {error && (
-          <div className="bg-red-50 border border-red-200 p-6 rounded-2xl">
+          <div className="bg-red-50 p-6 rounded-2xl">
             <p className="text-red-600 font-medium">{error}</p>
           </div>
         )}
 
         <form onSubmit={handleSubmit}>
-          <div className="bg-white p-8 rounded-[2rem] border border-slate-100 font-body mb-8">
-            <h2 className="text-3xl font-extrabold font-heading mb-8 tracking-tight">
+          {/* Contact Details Section */}
+          <div className="bg-[#F8FAFC] p-8 rounded-[2rem] mb-8">
+            <h2 className="text-3xl font-bold font-heading mb-8 tracking-tight">
               Contact Details
             </h2>
             <div className="flex flex-col gap-6">
@@ -238,13 +235,14 @@ export function OrderForm({ pkg }: OrderFormProps) {
             </div>
           </div>
 
-          <div className="bg-white p-8 rounded-[2rem] border border-slate-100 mb-8">
-            <h2 className="text-3xl font-extrabold font-heading mb-8 tracking-tight">
+          {/* Travel Details Section */}
+          <div className="bg-[#F8FAFC] p-8 rounded-[2rem] mb-8">
+            <h2 className="text-3xl font-bold font-heading mb-8 tracking-tight">
               Travel Details
             </h2>
             <div className="flex flex-col gap-6">
               <div>
-                <label className="block text-sm font-bold mb-2 text-text/70">
+                <label className="block text-sm font-semibold mb-2 text-text/80">
                   Travel Date
                 </label>
                 <input
@@ -252,19 +250,19 @@ export function OrderForm({ pkg }: OrderFormProps) {
                   min={minDate}
                   value={travelDate}
                   onChange={(e) => setTravelDate(e.target.value)}
-                  className="w-full px-5 py-4 rounded-2xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/10 outline-none transition-all text-text font-medium"
+                  className="w-full px-5 py-4 rounded-2xl bg-white placeholder:text-text/40 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-text font-medium"
                   required
                 />
               </div>
               <div className="flex flex-col sm:flex-row gap-6">
                 <div className="flex-1">
-                  <label className="block text-sm font-bold mb-2 text-text/70">
+                  <label className="block text-sm font-semibold mb-2 text-text/80">
                     Adults
                   </label>
                   <select
                     value={adults}
                     onChange={(e) => setAdults(parseInt(e.target.value))}
-                    className="w-full px-5 py-4 rounded-2xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/10 outline-none transition-all text-text font-medium"
+                    className="w-full px-5 py-4 rounded-2xl bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-text font-medium"
                   >
                     {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
                       <option key={n} value={n}>
@@ -274,13 +272,13 @@ export function OrderForm({ pkg }: OrderFormProps) {
                   </select>
                 </div>
                 <div className="flex-1">
-                  <label className="block text-sm font-bold mb-2 text-text/70">
+                  <label className="block text-sm font-semibold mb-2 text-text/80">
                     Children
                   </label>
                   <select
                     value={children}
                     onChange={(e) => setChildren(parseInt(e.target.value))}
-                    className="w-full px-5 py-4 rounded-2xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/10 outline-none transition-all text-text font-medium"
+                    className="w-full px-5 py-4 rounded-2xl bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-text font-medium"
                   >
                     {[0, 1, 2, 3, 4, 5, 6].map((n) => (
                       <option key={n} value={n}>
@@ -291,57 +289,65 @@ export function OrderForm({ pkg }: OrderFormProps) {
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-bold mb-2 text-text/70">
+                <label className="block text-sm font-semibold mb-2 text-text/80">
                   Special Requests (Optional)
                 </label>
                 <textarea
                   value={specialRequests}
                   onChange={(e) => setSpecialRequests(e.target.value)}
                   placeholder="Any dietary requirements, accessibility needs, or special occasions?"
-                  className="w-full px-5 py-4 rounded-2xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/10 outline-none transition-all text-text font-medium resize-none"
+                  className="w-full px-5 py-4 rounded-2xl bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-text font-medium resize-none"
                   rows={3}
                 />
               </div>
             </div>
           </div>
 
-          <button
+          <Button
             type="submit"
             disabled={isSubmitting || !session?.user}
-            className="w-full bg-[#1E293B] text-white hover:bg-[#0F172A] hover:-translate-y-1 py-5 rounded-2xl font-medium text-xl transition-all flex justify-center items-center gap-2 h-16 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+            className="w-full py-5 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isSubmitting ? "Processing..." : "Complete Booking"}
-          </button>
+          </Button>
         </form>
       </div>
 
-      {/* Right Info: Order Summary Sticky Widget */}
+      {/* Right Column - Order Summary */}
       <div className="w-full lg:w-[40%]">
-        <div className="bg-white p-8 rounded-[2rem] border border-slate-100 sticky top-10">
-          <h3 className="text-2xl font-extrabold font-heading mb-8 tracking-tight">
+        <div className="sticky top-10 bg-slate-100 p-8 rounded-[2.5rem]">
+          <h3 className="text-2xl font-bold font-heading mb-8 tracking-tight">
             Order Summary
           </h3>
+          
+          {/* Package Preview */}
           <div className="flex gap-5 mb-8">
             <div
-              className="w-28 h-28 rounded-2xl overflow-hidden flex-shrink-0"
-              style={{
-                backgroundImage: `url("${pkg.image}")`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
+              className="w-28 h-28 rounded-2xl overflow-hidden flex-shrink-0 bg-cover bg-center"
+              style={{ backgroundImage: `url("${pkg.image}")` }}
             ></div>
             <div className="flex flex-col justify-center">
               <h4 className="font-bold text-lg leading-tight mb-2">{pkg.title}</h4>
-              <p className="text-text/60 text-sm font-medium">
-                {pkg.duration} &bull; {pkg.location}
-              </p>
-              <div className="mt-3 text-primary font-bold bg-primary/10 w-fit px-3 py-1 rounded-full text-xs">
-                {pkg.rating} Excellent
+              <div className="flex items-center gap-2 text-text/60 text-sm mb-2">
+                <Location01Icon className="w-4 h-4" />
+                <span>{pkg.location}</span>
+              </div>
+              <div className="flex items-center gap-2 text-text/60 text-sm">
+                <Clock01Icon className="w-4 h-4" />
+                <span>{pkg.duration}</span>
               </div>
             </div>
           </div>
 
-          <div className="flex flex-col gap-4 border-t border-slate-100 py-6 mb-6 text-sm font-semibold text-text/70">
+          {/* Rating Badge */}
+          <div className="flex items-center gap-2 bg-primary/10 w-fit px-4 py-2 rounded-full mb-8">
+            <StarIcon className="w-4 h-4 text-primary fill-primary" />
+            <span className="text-primary font-bold text-sm">{pkg.rating} Excellent</span>
+          </div>
+
+          {/* Trip Details */}
+          <div className="flex flex-col gap-4 py-6 mb-6 text-sm font-semibold text-text/70">
+            <div className="w-full h-px bg-text/10"></div>
             <div className="flex justify-between items-center">
               <span>Date</span>
               <span className="text-text">
@@ -361,8 +367,10 @@ export function OrderForm({ pkg }: OrderFormProps) {
                 {children > 0 && `, ${children} Child${children > 1 ? "ren" : ""}`}
               </span>
             </div>
+            <div className="w-full h-px bg-text/10"></div>
           </div>
 
+          {/* Price Breakdown */}
           <div className="flex flex-col gap-4 text-sm font-semibold mb-8">
             {isCalculating ? (
               <div className="text-text/50 text-center py-4">Calculating...</div>
@@ -401,15 +409,13 @@ export function OrderForm({ pkg }: OrderFormProps) {
             )}
           </div>
 
-          <div className="flex justify-between items-center pt-6 border-t border-slate-100 mt-auto bg-white -mx-8 -mb-8 px-8 pb-8 rounded-b-[2rem]">
-            <div>
-              <span className="block text-sm text-text/60 font-semibold mb-1">
-                Total Payment
-              </span>
-              <span className="text-4xl font-black text-cta font-heading">
-                ${priceBreakdown?.total || pkg.price * adults + Math.round(pkg.price * adults * 0.1)}
-              </span>
-            </div>
+          {/* Total */}
+          <div className="w-full h-px bg-text/10 mb-6"></div>
+          <div className="flex justify-between items-end">
+            <span className="font-bold text-text font-heading text-lg">Total Payment</span>
+            <span className="text-3xl font-bold text-primary font-heading">
+              ${priceBreakdown?.total || pkg.price * adults + Math.round(pkg.price * adults * 0.1)}
+            </span>
           </div>
         </div>
       </div>

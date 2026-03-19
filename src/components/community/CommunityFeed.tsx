@@ -206,7 +206,7 @@ export function CommunityFeed() {
                 value={newPostContent}
                 onChange={(e) => setNewPostContent(e.target.value)}
                 placeholder="What's your travel story?"
-                className="w-full px-5 py-4 rounded-2xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/10 outline-none transition-all text-text font-medium resize-none mb-4"
+                className="w-full px-5 py-4 rounded-2xl bg-[#F8FAFC] focus:bg-white focus:ring-2 focus:ring-primary/20 outline-none transition-all text-text font-medium resize-none mb-4"
                 rows={4}
                 required
               />
@@ -215,13 +215,13 @@ export function CommunityFeed() {
                 value={newPostLocation}
                 onChange={(e) => setNewPostLocation(e.target.value)}
                 placeholder="Location (optional)"
-                className="w-full px-5 py-4 rounded-2xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/10 outline-none transition-all text-text font-medium mb-6"
+                className="w-full px-5 py-4 rounded-2xl bg-[#F8FAFC] focus:bg-white focus:ring-2 focus:ring-primary/20 outline-none transition-all text-text font-medium mb-6"
               />
               <div className="flex gap-4">
                 <button
                   type="button"
                   onClick={() => setShowCreateModal(false)}
-                  className="flex-1 py-3 rounded-2xl border border-slate-200 font-medium text-text/70 hover:bg-slate-50 transition-colors"
+                  className="flex-1 py-3 rounded-2xl bg-slate-100 font-medium text-text/70 hover:bg-slate-200 transition-colors"
                 >
                   Cancel
                 </button>
@@ -306,7 +306,7 @@ export function CommunityFeed() {
                   &quot;{post.content}&quot;
                 </p>
 
-                <div className="flex items-center justify-between text-text/40 pt-4 border-t border-slate-100 font-medium">
+                <div className="flex items-center justify-between text-text/40 pt-4 font-medium">
                   <div className="flex gap-4">
                     <button
                       onClick={() => handleLike(post.id)}

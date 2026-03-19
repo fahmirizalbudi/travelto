@@ -1,18 +1,35 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Logo } from "../../../src/components/ui/Logo";
 import { Input } from "../../../src/components/ui/Input";
-import { signIn } from "@/src/lib/auth-client";
+import { signIn, useSession } from "@/src/lib/auth-client";
 
 export default function SignInPage() {
   const router = useRouter();
+  const { data: session, isPending } = useSession();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (!isPending && session?.user) {
+      router.replace("/");
+    }
+  }, [session, isPending, router]);
+
+  // Show loading while checking session
+  if (isPending || session?.user) {
+    return (
+      <div className="min-h-screen w-full flex items-center justify-center bg-white">
+        <div className="w-12 h-12 rounded-full bg-slate-100 animate-pulse"></div>
+      </div>
+    );
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -99,7 +116,7 @@ export default function SignInPage() {
             </p>
 
             {error && (
-              <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm">
+              <div className="mb-6 p-4 bg-red-50 rounded-xl text-red-600 text-sm">
                 {error}
               </div>
             )}
@@ -146,7 +163,7 @@ export default function SignInPage() {
 
               <div className="relative flex items-center justify-center mt-6 mb-2">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-slate-200"></div>
+                  <div className="w-full h-px bg-slate-200"></div>
                 </div>
                 <span className="relative bg-white px-4 text-sm text-text/40 font-medium">
                   Or continue with
@@ -157,7 +174,7 @@ export default function SignInPage() {
                 type="button"
                 onClick={handleGoogleSignIn}
                 disabled={isLoading}
-                className="w-full bg-white text-text hover:bg-slate-100 py-4 rounded-2xl font-medium text-base transition-colors border border-slate-200 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-slate-100 text-text hover:bg-slate-200 py-4 rounded-2xl font-medium text-base transition-colors flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24">
                   <path
