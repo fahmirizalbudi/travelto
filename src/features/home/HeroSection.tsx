@@ -8,7 +8,7 @@ export function HeroSection() {
       <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16 w-full">
         {/* Left Content */}
         <div className="w-full lg:w-[55%] flex flex-col justify-center relative z-10">
-          <h1 className="text-[48px] md:text-[64px] font-bold font-heading text-text leading-[1.05] mb-6 tracking-tight">
+          <h1 className="text-[48px] md:text-[76px] font-bold font-heading text-text leading-[1.05] mb-6 tracking-tight">
             Let's <br className="hidden md:block" />
             <span className="relative inline-block px-1">
               travel
