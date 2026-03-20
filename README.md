@@ -16,9 +16,9 @@
 
 <br />
 
-## TravelTo
+## Travelto
 
-TravelTo is a modern travel booking platform built with Next.js 15 and React 19. It provides a seamless experience for discovering and booking travel packages with a beautiful, responsive interface.
+Travelto is a modern travel booking platform built with Next.js 15 and React 19. It provides a seamless experience for discovering and booking travel packages with a beautiful, responsive interface.
 
 Key features include:
 
